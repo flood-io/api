@@ -1,0 +1,15 @@
+{
+  "name": "openapi-definition",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:flood-io/api.git",
+  "author": "Ivan Vanderbyl <ivanvanderbyl@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "openapi-generator generate -i ./flood-api.v3.yml -g typescript-fetch -o ./flood-fetch-client",
+    "postbuild": "prettier ./flood-fetch-client/**/*.ts --write"
+  },
+  "dependencies": {
+    "prettier": "^1.16.4"
+  }
+}

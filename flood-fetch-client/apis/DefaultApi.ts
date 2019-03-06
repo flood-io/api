@@ -25,16 +25,12 @@ export class DefaultApi extends runtime.BaseAPI {
 
     const headerParameters: runtime.HTTPHeaders = {}
 
-    if (this.configuration && this.configuration.accessToken) {
-      // oauth required
-      if (typeof this.configuration.accessToken === 'function') {
-        headerParameters['Authorization'] = this.configuration.accessToken('OAuth2', [
-          'admin',
-          'user',
-        ])
-      } else {
-        headerParameters['Authorization'] = this.configuration.accessToken
-      }
+    if (
+      this.configuration &&
+      (this.configuration.username !== undefined || this.configuration.password !== undefined)
+    ) {
+      headerParameters['Authorization'] =
+        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
     }
 
     const response = await this.request({

@@ -15,13 +15,20 @@ paths:
         '200':
           description: |-
             200 OK
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
       security:
-        - 'OAuth2':
-            - 'admin'
+        - bearerAuth: []
+        # - 'OAuth2':
+        #     - 'admin'
 servers:
   - url: https://api.flood.io
 components:
   securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: Bearer <Secure Random String>
     OAuth2:
       description: 'OAuth2 scopes for Jira'
       type: 'oauth2'
@@ -31,3 +38,6 @@ components:
           scopes:
             admin: 'The default admin scope'
             user: 'The default user scope'
+  responses:
+    UnauthorizedError:
+      description: Access token is missing or invalid
